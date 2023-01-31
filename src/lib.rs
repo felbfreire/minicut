@@ -12,25 +12,32 @@ impl Config {
         Config {
             file_path: file_path,
             delimiter: delimiter,
-            column: column,
+            column: column
         }
     }
 }
 
 pub fn cut(config: Config) {
-    let mut lines: Vec<String> = vec!();
-    let mut words = vec!();
 
-    let file_content: String = fs::read_to_string(config.file_path).unwrap();
+    let mut container: Vec<Vec<&str>> = vec!();
 
-    for line in file_content.split('\n') {
-        lines.push(line.to_string());
+    let mut file_content: String = fs::read_to_string(config.file_path).unwrap();
+    let content_to_vector: Vec<_> = file_content.split('\n').collect();
+
+
+    for s in &content_to_vector {
+        let mut v: Vec<&str> = vec!();
+        v.push(s);
+
+        container.push(v);
     }
-
-    for word in lines[0].split(config.delimiter) {
-        words.push(word.to_string());
-    }
-
-    println!("{}", &words[config.column]);
     
+    for v in &container {
+        //println!("{:?}", &v);
+        for s in v {
+            let spl: Vec<&str> = s.split(config.delimiter).collect();
+            println!("{:?}", &spl[config.column]);
+        }
+    }
+ 
 }
