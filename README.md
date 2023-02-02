@@ -20,3 +20,8 @@ output:
 "To"
 ""
 ```
+
+Known bugs, errors:
+
+. the program will do the job, but it panicks for
+	some reason.
